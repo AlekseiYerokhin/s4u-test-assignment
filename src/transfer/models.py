@@ -7,6 +7,10 @@ class InsufficientBalance(Exception):
     pass
 
 
+class SameAccountsOperationException(Exception):
+    pass
+
+
 class Transfer(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     from_account = models.ForeignKey(Account, models.CASCADE, related_name='transfers_in')
@@ -17,6 +21,9 @@ class Transfer(models.Model):
     def do_transfer(from_account: Account, to_account: Account, amount: Decimal):
         if from_account.balance < amount:
             raise InsufficientBalance()
+
+        if from_account.number == to_account.number:
+            raise SameAccountsOperationException()
 
         from_account.balance -= amount
         to_account.balance += amount
