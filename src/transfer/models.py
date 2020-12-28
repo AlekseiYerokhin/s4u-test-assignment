@@ -43,3 +43,11 @@ class Transfer(models.Model):
             to_account=to_account,
             amount=amount
         )
+
+
+"""
+Extension suggestions:
+For cash operations i would suggest just another Django app but as a POC at first time. 
+For external operations it seems like it is better to implement a microservice due to it will to handle operations 
+between different banks and therefore different APIs.
+"""
